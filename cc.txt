@@ -1,0 +1,175 @@
+                                                   EX-3      Install GAE
+*******************************************************************************    
+              >app.yaml<
+
+runtime: python27
+api_version: 1
+threadsafe: false
+handlers:
+  - url: /
+    static_files: index.html
+    upload: index.html
+
+                   >index.html<
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Html Web Page</title>
+</head>
+<body>
+    <h1>Hello Students</h1>
+    <p>welcome to cloud Laboratory</p>
+</body>
+</html>
+
+
+
+                    >app.yaml<
+
+runtime: python27
+api_version: 1
+threadsafe: false
+handlers:
+- url: /
+  script: index.py
+
+
+                    >index.py<
+
+print("hello world")
+
+run command -> google-cloud-sdk\bin\dev_appserver.py "folder path"
+
+                        EX_4              launch web application
+Commaned:
+gcloud projects list
+gcloud config set project <project_id>
+gcloud app create
+6
+Git clone https://github.com/GoogleCloudPlatform/python-docs-samples
+cd appengine
+cd standard_python3
+cd hello_world
+python main.py
+go to this link -> http://127.0.0.1:8080
+
+                        EX_5              cloud sim
+https://github.com/michaelfahmy/cloudsim-task-scheduling
+go this link --> https://code.google.com/archive/p/cloudsim/downloads
+download this --> cloudsim-3.0.3.zip
+
+                        EX_8              Docker  
+Push
+ mkdir doc
+cd doc
+nano sam.java
+           public class sam{
+                   public static void main(String args[]){
+                       System.out.println(“Hello student”);
+                     }
+              }
+Javac sam.java
+Java sam.java
+ FROM openjdk:11-jdk-slim
+WORKDIR  /doc
+COPY sam.java .
+RUN  javac sam.java
+CMD[“java”,”sam”]     
+Save it as name docker
+sudo docker build -t sam-java
+sudo docker images
+sudo docker run sam-java
+sudo docker tag sam-java username/sam-java
+sudo docker push username/sam-java
+PULL
+sudo docker pull username/sam-java
+sudo docker run username/sam-java
+Hadoop
+
+sudo apt update 
+sudo apt install openjdk-11-jdk
+java -version
+sudo adduser hadoop
+su - hadoop 
+ssh-keygen -t rsa 
+cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys 
+chmod 640 ~/.ssh/authorized_keys 
+ssh localhost 
+su - hadoop 
+wget https://downloads.apache.org/hadoop/common/hadoop-3.3.2/hadoop-3.3.2.tar.gz 
+tar -xvzf hadoop-3.3.2.tar.gz
+mv hadoop-3.3.2 hadoop 
+nano ~/.bashrc
+
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+export HADOOP_HOME=/home/hadoop/hadoop
+export HADOOP_INSTALL=$HADOOP_HOME
+export HADOOP_MAPRED_HOME=$HADOOP_HOME
+export HADOOP_COMMON_HOME=$HADOOP_HOME
+export HADOOP_HDFS_HOME=$HADOOP_HOME
+export HADOOP_YARN_HOME=$HADOOP_HOME
+export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native
+export PATH=$PATH:$HADOOP_HOME/sbin:$HADOOP_HOME/bin
+export HADOOP_OPTS="-Djava.library.path=$HADOOP_HOME/lib/native"
+
+source ~/.bashrc 
+nano $HADOOP_HOME/etc/hadoop/hadoop-env.sh 
+
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+mkdir -p ~/hadoopdata/hdfs/namenode 
+mkdir -p ~/hadoopdata/hdfs/datanode 
+sudo nano $HADOOP_HOME/etc/hadoop/core-site.xml
+<configuration>
+<property>
+<name>fs.defaultFS</name>
+<value>hdfs://localhost:9000</value>
+</property>
+</configuration>
+
+sudo nano $HADOOP_HOME/etc/hadoop/hdfs-site.xml
+<configuration>        <property>
+                <name>dfs.replication</name>
+                <value>1</value>
+        </property>        <property>
+                <name>dfs.name.dir</name>
+                <value>file:///home/hadoop/hadoopdata/hdfs/namenode</value>
+        </property>        <property>
+                <name>dfs.data.dir</name>
+                <value>file:///home/hadoop/hadoopdata/hdfs/datanode</value>
+        </property>
+</configuration>
+
+sudo nano $HADOOP_HOME/etc/hadoop/mapred-site.xml
+
+<configuration> 
+<property> 
+<name>mapreduce.framework.name</name> 
+<value>yarn</value> 
+</property> 
+</configuration>
+
+sudo nano $HADOOP_HOME/etc/hadoop/yarn-site.xml
+
+<configuration>
+<property>
+<name>yarn.nodemanager.aux-services</name>
+<value>mapreduce_shuffle</value>
+</property>
+</configuration>
+
+hdfs namenode -format
+start-dfs.sh
+start-yarn.sh
+jps
+
+http://localhost:9870
+http://localhost:9864
+http://localhost:8088
+
+
+
+
+  
+
+
