@@ -40,6 +40,7 @@ handlers:
 print("hello world")
 
 run command -> google-cloud-sdk\bin\dev_appserver.py "folder path"
+******************************************************************************* 
 
                         EX_4              launch web application
 Commaned:
@@ -58,24 +59,29 @@ go to this link -> http://127.0.0.1:8080
 https://github.com/michaelfahmy/cloudsim-task-scheduling
 go this link --> https://code.google.com/archive/p/cloudsim/downloads
 download this --> cloudsim-3.0.3.zip
+******************************************************************************* 
 
                         EX_8              Docker  
 Push
  mkdir doc
 cd doc
 nano sam.java
+
            public class sam{
                    public static void main(String args[]){
-                       System.out.println(“Hello student”);
+                       System.out.println(â€œHello studentâ€);
                      }
               }
+
 Javac sam.java
 Java sam.java
- FROM openjdk:11-jdk-slim
-WORKDIR  /doc
-COPY sam.java .
-RUN  javac sam.java
-CMD[“java”,”sam”]     
+
+      FROM openjdk:11-jdk-slim
+      WORKDIR  /doc
+      COPY sam.java .
+      RUN  javac sam.java
+      CMD[â€œjavaâ€,â€samâ€]     
+
 Save it as name docker
 sudo docker build -t sam-java
 sudo docker images
@@ -85,6 +91,8 @@ sudo docker push username/sam-java
 PULL
 sudo docker pull username/sam-java
 sudo docker run username/sam-java
+
+******************************************************************************* 
 Hadoop
 
 sudo apt update 
