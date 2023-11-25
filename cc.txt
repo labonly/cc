@@ -82,8 +82,8 @@ Java sam.java
       RUN  javac sam.java
       CMD[“java”,”sam”]     
 
-Save it as name docker
-sudo docker build -t sam-java
+Save it as name Dockerfile
+sudo docker build -t sam-java .
 sudo docker images
 sudo docker run sam-java
 sudo docker tag sam-java username/sam-java
